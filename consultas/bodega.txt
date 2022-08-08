@@ -1,0 +1,5 @@
+SELECT id_liquidacion, PrecioFinal, Nombre_Municipio "Municipio del lote", Nombre_Lote "Lote Asignado",(select Nombre_Lote FROM lote WHERE Id_Lote = l.Id_Lote2) "Lote Asignado 2", ObservacionLote, productor, Codigo_Unidad_Productiva FROM `liquidacion` l
+JOIN lote ON l.Id_Lote = lote.Id_Lote
+JOIN municipios m ON lote.Municipio_Lote = m.Id_Municipio
+JOIN recibo r ON l.Id_Liquidacion = r.Codigo_Recibo
+JOIN productores p ON Id_Productor = p.Codigo_Unidad_Productiva;
