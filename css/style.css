@@ -46,12 +46,25 @@ h2, #sidebar-header{
     font-style: normal;
     text-align: center;
 }
+
+
+.img, #sidebar-header{
+    margin:10px auto;
+    display:block;}
 p {
     font-family: 'rubik', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: 500;
     line-height: 1.7em;
     color: #543f2f;
+}
+
+a{
+    font-family: 'rubik', sans-serif;
+    font-size: 1.1em;
+    font-weight: 200;
+    line-height: 1.7em;
 }
 
 a, a:hover, a:focus {

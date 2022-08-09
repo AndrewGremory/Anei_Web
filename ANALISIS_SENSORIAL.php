@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
+<?php include_once "includes/header.php"; ?>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>                        
@@ -40,65 +39,5 @@
  </body>
  </html>
 
-    <script type="text/javascript">
-<!-- ----------------- ANALISIS SENSORIAL---------------------------------> 
-function analisissensorial()
-    { 
-    
-      var parametros = 
-      {
-        "codigo_sensorial" : $("#codigo_sensorial").val(),
-        "puntaje_scaa" : $("#puntaje_scaa").val(),
-        "acidez" : $("#acidez").val(),
-        "notas" : $("#notas").val(),
-        "accion":"13"
-      };
-
-      $.ajax({
-        data: parametros,
-        url: 'ANEI2.php',
-        type: 'POST',
-        
-        beforesend: function()
-        {
-          $('#mostrar_mensaje').html("Mensaje antes de Enviar");
-        },
-
-        success: function(mensaje)
-        {
-          $('#mostrar_mensaje').html(mensaje);
-        }
-      });
-      return false;
-    }
-
-    <!-- ----------------- BUSQUEDA--------------------------------->  
-
-function mi_busqueda()
-{ 
-    buscar = document.getElementById('cuadro_buscar').value;
- 
-  var parametros = 
-  {
-    "mi_busqueda" : buscar,
-    
-    "accion" : "5"
-  };
-
-  $.ajax({
-    data: parametros,
-    url: 'ANEI2.php',
-    type: 'POST',
-    
-    beforesend: function()
-    {
-      $('#mostrar_mensaje').html("Mensaje antes de Enviar");
-    },
-
-    success: function(mensaje)
-    {
-      $('#mostrar_mensaje').html(mensaje);
-    }
-  });
-}
-    </script>
+<script type="text/javascript">
+<?php include_once "includes/footer.php"; ?>
