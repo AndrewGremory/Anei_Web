@@ -32,11 +32,4 @@
                           </div>
                         </div>
                        
-</div>
-
-                       
- </body>
- </html>
-
-<script type="text/javascript">
 <?php include_once "includes/footer.php"; ?>

@@ -50,13 +50,11 @@
     <div id="mostrar_mensaje"></div>
     </div>
    </div>
-</div>
 
     
 			<!-- -----------------CAFE --------------------------------->	
      
 <!-- ----------------- EMPIEZA CODIGO AJAX ---------------------------------> 
 
-<script type="text/javascript">
 
 <?php include_once "includes/footer.php"; ?>

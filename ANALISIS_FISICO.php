@@ -31,7 +31,6 @@
                           </div>
                         </div>
                        
-</div>
 <!-- <script>function mi_busqueda()
 { 
     buscar = document.getElementById('cuadro_buscar').value;
@@ -60,7 +59,6 @@
   });
 }</script> -->
 
-<script type="text/javascript">
 
 <?php include_once "includes/footer.php"; ?>
 
