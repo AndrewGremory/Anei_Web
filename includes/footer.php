@@ -1,4 +1,3 @@
-</div>
 <footer class="footer">
     </footer>
 
