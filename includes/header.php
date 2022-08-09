@@ -32,17 +32,17 @@
             <li class="active">
                 <!-- COMRPA -->
                 <a href="#compra" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Comprar</a>
-                <ul class="collapse list-unstyled" id="compra">
-                    <li>
-                        <a href="COMPRA.php">Comprar</a>
-                    </li>
-                    <li>
-                        <a href="ANALISIS_FISICO.php">Analisis Fisico</a>
-                    </li>
-                    <li>
-                        <a href="ANALISIS_SENSORIAL.php">Analisis Sensorial</a>
-                    </li>
-                </ul>
+                    <ul class="collapse list-unstyled" id="compra">
+                        <li>
+                            <a href="COMPRA.php">Comprar</a>
+                        </li>
+                        <li>
+                            <a href="ANALISIS_FISICO.php">Analisis Fisico</a>
+                        </li>
+                        <li>
+                            <a href="ANALISIS_SENSORIAL.php">Analisis Sensorial</a>
+                        </li>
+                    </ul>
             </li>
             <!-- LIQUIDAR -->
             <hr>
@@ -56,6 +56,41 @@
                 </ul>
             </li>
         </ul>
+
+        <a href="#" class="nav-link"  data-toggle="collapse" data-target="#hola" aria-expanded="false" aria-controls="collapseLayouts" >
+            <div class="sb-link-icon"><i class="fas fa-book-open"></i> hola</div>
+        </a>
+            <div class="collapse" id="hola">
+                <a href="COMPRA.php" class="nav-link">Compra</a>
+            </div>
+
+        <div class="sb-sidenav-menu-heading">Herramientas</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Fichas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+
+                                <a class="nav-link" href="agregar_ficha.php">Agregar Ficha</a>
+                                <a class="nav-link" href="consultar_ficha.php">Consulta de Fichas</a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseUsuarios">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Usuarios
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="agregar_user.php">Agregar usuario</a>
+                                <a class="nav-link" href="consultar_user.php">Consulta de usuario</a>
+
+                            </nav>
+                        </div>
+         
     </nav>
     
 
@@ -72,6 +107,3 @@
         </nav>        
     </div>
     
-</body>
-
-</html>
