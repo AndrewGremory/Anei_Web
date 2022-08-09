@@ -34,13 +34,13 @@
                 <a href="#compra" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Comprar</a>
                 <ul class="collapse list-unstyled" id="compra">
                     <li>
-                        <a href="compra.php">Comprar</a>
+                        <a href="COMPRA.php">Comprar</a>
                     </li>
                     <li>
-                        <a href="analisis_fisico.php">Analisis Fisico</a>
+                        <a href="ANALISIS_FISICO.php">Analisis Fisico</a>
                     </li>
                     <li>
-                        <a href="analisis_sensorial.php">Analisis Sensorial</a>
+                        <a href="ANALISIS_SENSORIAL.php">Analisis Sensorial</a>
                     </li>
                 </ul>
             </li>
