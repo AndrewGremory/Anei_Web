@@ -29,7 +29,7 @@
 
         <ul class="list-unstyled components">
             <p>Gestion de recibo</p>
-            <li class="">
+            <li class="active">
                 <!-- COMRPA -->
                 <a href="#compra" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Comprar</a>
                 <ul class="collapse list-unstyled" id="compra">

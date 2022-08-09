@@ -60,8 +60,3 @@
 <script type="text/javascript">
 
 <?php include_once "includes/footer.php"; ?>
-
-
- 
-
-
