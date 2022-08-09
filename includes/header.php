@@ -57,7 +57,7 @@
             </li>
         </ul>
 
-        <a href="#" class="nav-link"  data-toggle="collapse" data-target="#hola" aria-expanded="false" aria-controls="collapseLayouts" >
+        <!-- <a href="#" class="nav-link"  data-toggle="collapse" data-target="#hola" aria-expanded="false" aria-controls="collapseLayouts" >
             <div class="sb-link-icon"><i class="fas fa-book-open"></i> hola</div>
         </a>
             <div class="collapse" id="hola">
@@ -89,7 +89,7 @@
                                 <a class="nav-link" href="consultar_user.php">Consulta de usuario</a>
 
                             </nav>
-                        </div>
+                        </div> -->
          
     </nav>
     
