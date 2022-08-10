@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Probando</title>
-	<script src="jquery-3.4.1.min.js"></script>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-
-<link href = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel = "hoja de estilo" >  
-<script src = "http://code.jquery.com/jquery-2.0.3.min.js" > </script>  
-<script src = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" > </script>
-
-<link href = "bootstrap-editable / css / bootstrap-editable.css" rel = "stylesheet" >  
-<script src = "bootstrap-editable / js / bootstrap-editable.js" > </script>
-
-
-</head>
-<body>
+<?php include_once "includes/header.php"; ?>
 
 <div class="container text-center">
-		<h1 class="text-center">CENTRO DE ACOPIO ANEI</h1>
+		<h2>LIQUIDACION</h2>
 		<hr>
 		<div class="row text-center">
-
-
                         <input type="text" id="cuadro_buscar" onkeyup="mi_busqueda();" list="listanavegadores" placeholder="Buscar...">
                         <datalist id="listanavegadores">
                         <?php
@@ -42,13 +19,11 @@
                         
                         <?php } ?>
                         </datalist>                     
-        </div>
 
     
     </div>
 
 		<hr>
-		<h2 class="text-center">SERVICIOS</h2>
    <div class="row justify-content-md-center">		
     <div class="col-md-2">
     <div id="mostrar_mensaje"></div>
@@ -82,10 +57,13 @@ function liquidacion()
         "observaciones_liquidacion" : $("#observaciones_liquidacion").val(),
         "dian" : $("#dian").val(),
         "asociados" : $("#asociados").val(),
-        "neto_pagar" : $("#neto_pagar").val(),
+        "neto_pagar2" : $("#neto_pagar2").val(),
         "ahorro" : $("#ahorro").val(),
         "total_ahorro" : $("#total_ahorro").val(),
         "kilos_liquidacion" : $("#kilos_liquidacion").val(),
+        "cedula_liquidacion" : $("#cedula_liquidacion").val(),
+        "aporte" : $("#aporte").val(),
+        "nombre_compra" : $("#nombre_compra").val(),
         "accion":"12"
       };
 
@@ -145,3 +123,5 @@ function liquidacion()
 <!-- ----------------- BUSQUEDA BONIFICACION--------------------------------->
 </script>
 <!-- ----------------- TERMINA CODIGO AJAX ---------------------------------> 
+<?php include_once "includes/footer.php"; ?>
+

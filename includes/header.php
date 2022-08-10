@@ -53,9 +53,13 @@
                     <li>
                         <a href="liquidacion.php">Liquidar</a>
                     </li>
+                    <li>
+                        <a href="">Consulta </a>
+                    </li>
                 </ul>
             </li>
         </ul>
+
 
         <!-- <a href="#" class="nav-link"  data-toggle="collapse" data-target="#hola" aria-expanded="false" aria-controls="collapseLayouts" >
             <div class="sb-link-icon"><i class="fas fa-book-open"></i> hola</div>
@@ -107,5 +111,4 @@
         </nav>        
     </div>
 
-<?php include_once "includes/footer.php"; ?>
 

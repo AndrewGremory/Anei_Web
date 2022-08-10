@@ -1,21 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php
+        session_start();
+		?>
 <head>
 	<meta charset="utf-8">
- 
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script type="text/javascript">
+
+   
 		
 		function boni()
 		{ 
 			var b= document.getElementById('precio_dia').value;
 			var o= document.getElementById('rendimiento').value;
 			var a = document.getElementById('bonificacion').value;
+			var c= document.getElementById('prima_producto').value;
 
 			
-			if (document.getElementById('producto').value =="cafe mojado" || document.getElementById('producto').value =="cacao en baba") 
+			if (document.getElementById('producto').value ==="cafe mojado"  &&  document.getElementById('politica').value==="politica1") 
 			{ 
               o=0; 
+			  
+			  var moja = parseInt(b) + parseInt(a) + parseInt(c);
+			  document.getElementById('precio_final').value= moja;
 			}
+
+			if (document.getElementById('producto').value =="cafe mojado"  &&  document.getElementById('politica').value=="politica2") 
+			{ 
+              o=0; 
+			  var moja = parseInt(b) + parseInt(a);
+			  document.getElementById('precio_final').value= moja;
+			}
+
+			if (document.getElementById('producto').value =="cacao en baba"  &&  document.getElementById('politica').value=="politica1") 
+			{ 
+              o=0; 
+			  
+			  var moja = parseInt(b) + parseInt(a) + parseInt(c);
+			  document.getElementById('precio_final').value= moja;
+			}
+
+			if (document.getElementById('producto').value =="cacao en baba"  &&  document.getElementById('politica').value=="politica2") 
+			{ 
+              o=0; 
+			  var moja = parseInt(b) + parseInt(a);
+			  document.getElementById('precio_final').value= moja;
+			}
+
+			if (document.getElementById('politica').value=="politica1" && document.getElementById('producto').value =="cafe pergamino seco")
+			 {
+			   
+			   var e = parseInt(a) + parseInt(c)+ parseInt(o);
+			   document.getElementById('precio_final').value= e;
+		     }
 
 			if (document.getElementById('politica').value =="politica2" && document.getElementById('producto').value =="cafe pergamino seco") 
 			{
@@ -23,36 +62,32 @@
 			 var d = parseInt(a) + parseInt(b);
 			 document.getElementById('precio_final').value= d;
 		    } 
-		    if (document.getElementById('politica').value=="politica1" && document.getElementById('producto').value =="cafe pergamino seco")
+		   
+			if (document.getElementById('politica').value=="politica1" && document.getElementById('producto').value =="cacao seco")
 			 {
-			   var c= document.getElementById('prima_producto').value;
-			   var e = parseInt(a) + parseInt(c)+ parseInt(o);
-			   document.getElementById('precio_final').value= e;
+				var moja = parseInt(b) + parseInt(a) + parseInt(c);
+			    document.getElementById('precio_final').value= moja;
 		     }
 
 			 if (document.getElementById('politica').value =="politica2" && document.getElementById('producto').value =="cacao seco") 
 			{
-			
-			 var d = parseInt(a) + parseInt(b);
-			 document.getElementById('precio_final').value= d;
+
+				var d = parseInt(a) + parseInt(b);
+			    document.getElementById('precio_final').value= d;
 		    } 
-		    if (document.getElementById('politica').value=="politica1" && document.getElementById('producto').value =="cacao seco")
-			 {
-			   var c= document.getElementById('prima_producto').value;
-			   var e = parseInt(a) + parseInt(c)+ parseInt(o);
-			   document.getElementById('precio_final').value= e;
-		     }
+		   
 
 			var f = document.getElementById('precio_final').value;
-			var g= document.getElementById('kilos_netos').value;
+			var g= document.getElementById('kilos_liquidacion').value;
 			var h = parseInt(f) * parseInt(g);
 			document.getElementById('subtotal').value= h;
 			
 			if (document.getElementById('producto').value =="cacao seco" || document.getElementById('producto').value =="cacao en baba" ) 
 			{ 
 				var i = document.getElementById('subtotal').value;
-			    var j = parseInt(i)*0.003;
+			    var j = parseInt(i)*0.005;
 			    document.getElementById('dian').value= j;
+				document.getElementById('aporte').value= j;
 			}
 
 			if (document.getElementById('producto').value =="cafe pergamino seco" || document.getElementById('producto').value =="cafe mojado" ) 
@@ -60,14 +95,20 @@
 				var i = document.getElementById('subtotal').value;
 			    var j = parseInt(i)*0.005;
 			    document.getElementById('dian').value= j;
+				document.getElementById('aporte').value= j;
+
 			}
 
 			var k = parseInt(h)*0.01;
 			document.getElementById('asociados').value= k;
-			var l = parseInt(h)-parseInt(j)-parseInt(k);
+
+			var dsecado = document.getElementById('descuento_secado').value;
+			
+			var l = parseInt(h)-parseInt(j)-parseInt(k)- parseInt(dsecado);
 			document.getElementById('neto_pagar').value= l;
 		}
 
+		
 		function facr() 
 		{   var p = document.getElementById('almendra_sana').value;
 			var ss = ((parseInt(p))/250)*100;
@@ -77,8 +118,9 @@
 	    }
 
 		function altotal() 
-		{   var r = document.getElementById('almendra_total').value;
-			var s = (parseInt(r)/250)*100;
+		{   var alsa = document.getElementById('almendra_sana').value;
+			var r = document.getElementById('almendra_total').value;
+			var s = (parseInt(r) - parseInt(alsa)) / parseInt(r);
 			document.getElementById('almendra_total1').value = s;
 		}
 
@@ -138,9 +180,8 @@
         }
 
 		function lat() 
-		{   var ee = document.getElementById('latas_compra').value;
-			var ff = parseInt(ee)*8;
-			document.getElementById('kilos_netos').value = ff;
+		{  
+			document.getElementById('kilos_netos').value =document.getElementById('latas_compra').value;
 			
 		}
    
@@ -148,27 +189,61 @@
 		{   var ee = document.getElementById('kilos_brutos').value;
 			var gg = document.getElementById('numero_sacos').value;
 			var hh = document.getElementById('numero_estopas').value;
-			var ii= (parseInt(gg)*400 + parseInt(hh)*400)/1000;
+			var ii= (parseInt(gg)*700 + parseInt(hh)*250)/1000;
 			var ff = parseInt(ee) - ii;
 			document.getElementById('kilos_netos').value = ff;
 		}
 
 		function aho() 
-		{   var jj = document.getElementById('kilos_netos').value;
+		{   var jj = document.getElementById('kilos_liquidacion').value;
+			var ap = document.getElementById('aporte').value;
 			var ll = document.getElementById('ahorro').value;
+			var np = document.getElementById('neto_pagar').value;
 			var kk = parseInt(jj)* parseInt(ll);
-			document.getElementById('total_ahorro').value = kk;
+			var tp = parseInt(np) - kk - parseInt(ap);
 			
+			document.getElementById('total_ahorro').value = kk;
+			document.getElementById('neto_pagar2').value = tp;
 		}
-		function com()
-		{ alert ("El numero ya fue registrado");}
+		
+		function apor() 
+		{   var jj = document.getElementById('kilos_liquidacion').value;
+			var ap = document.getElementById('aporte').value;
+			var ll = document.getElementById('ahorro').value;
+			var np = document.getElementById('neto_pagar').value;
+			var kk = parseInt(jj)* parseInt(ll);
+			var tp = parseInt(np) - kk - parseInt(ap);
+			
+			document.getElementById('total_ahorro').value = kk;
+			document.getElementById('neto_pagar2').value = tp;
+		}
+
+		document.getElementById('comentario').innerHTML=" ";
+		
+		function reti() 
+		{   var aneto = document.getElementById('neto_ahorro').value;
+			var vretiro = document.getElementById('valor_retiro').value;
+		
+			var tsaldo= parseInt(aneto) - parseInt(vretiro);
+			document.getElementById('saldo_disponible').value = tsaldo;
+
+			if(parseInt(tsaldo)<0)
+			{ document.getElementById('comentario').innerHTML="Saldo insuficiente";
+			  document.getElementById('boton').disabled=true;
+			}
+			
+			if(parseInt(tsaldo)>=0)
+			{ document.getElementById('comentario').innerHTML=" ";
+			  document.getElementById('boton').disabled=false;
+			}
+		}
 
 	</script>
 </head>
 <body>
 <?php
-
-
+        
+		
 	 $conexion = mysqli_connect("localhost", "root", "", "anei") or die("Problemas con la conexión");
 
 	$accion = $_POST['accion'];
@@ -205,16 +280,7 @@
 		         {$muni="PB";}
 		         if($consulta['municipio']=="valledupar")
 		         {$muni="VP";} 
-
-				 $r = mysqli_query($conexion," SELECT  *FROM compra");
-				 $cupos_vendidos=0;
-				 while($c = mysqli_fetch_array($r))
-				 {  $year= date("Y", strtotime($c['fecha_compra'])); 
-				  if ($c['cedula']==$consulta['cedula_usuario'] and $year==date("Y"))
-				  { $cupos_vendidos= $cupos_vendidos + $c['kilos_netos'];} 
-				 } 
 				 
-				 $cupo_disponible= $consulta['cupo_bcs'] - $cupos_vendidos;
 			 echo 
 			 '
 			 <form> 
@@ -237,27 +303,6 @@
 		 Codigo de entrada:
 		 <div class="col-lg-15">
 		   <input type="text" class="form-control" id="marca" name="marca" value="'.$muni.' '.$fecha.' '.$a.'"  ><br>
-		 </div>
-		</div>
-
-		<div class="form-group row ">
-		 Cupo:
-		 <div class="col-lg-12">
-		  <input type="number" class="form-control" id="cupo_bcs" name="cupo_bcs" value="'.$consulta['cupo_bcs'].'" readonly ><br>
-		 </div>
-		</div>
-
-		<div class="form-group row ">
-		 Cupo Utilizado:
-		 <div class="col-lg-12">
-		  <input type="number" class="form-control" id="cupos_vendidos" name="cupos_vendidos" value="'.$cupos_vendidos.'" readonly ><br>
-		 </div>
-		</div>
-
-		<div class="form-group row ">
-		 Cupo Disponible:
-		 <div class="col-lg-12">
-		  <input type="text" class="form-control" id="cupo_disponible" name="cupo_disponible" value="'.$cupo_disponible.'" readonly ><br>
 		 </div>
 		</div>
 
@@ -337,9 +382,9 @@
 		 </div>
 
 		 <div class="form-group row">
-		 Kilos Netos
+		 Kilos netos / Latas:
 		   <div class="col-lg-9">
-			 <input type="text" class="form-control" id="kilos_netos" name="kilos_netos" value="0" readonly><br>
+			 <input type="text" class="form-control" id="kilos_netos" name="kilos_netos" value="0" ><br>
 		   </div>
 		 </div>
 		 
@@ -355,44 +400,58 @@
 	}    
  if($accion == 10)
  {    
-	$resultados = mysqli_query($conexion," SELECT * FROM compra WHERE marca  = '$_POST[marca]'");
+	    $resultados = mysqli_query($conexion," SELECT * FROM compra WHERE marca  = '$_POST[marca]'");
 		if($consulta = mysqli_fetch_array($resultados))
 		{echo "<script>alert('Este registro ya existe')</script>";} 
 		else
-		{mysqli_query($conexion,"insert into compra (municipio_compra, cedula, producto, unidad, marca, numero_estopas, estado_estopas, observaciones, fecha_compra, numero_sacos, estado_sacos, kilos_brutos, kilos_netos, tipo_grano, latas_compra) values ('$_POST[municipio_compra]',$_POST[cedula_compra],  '$_POST[producto]', '$_POST[unidad]' ,'$_POST[marca]', $_POST[numero_estopas], '$_POST[estado_estopas]','$_POST[observaciones]','$fecha',$_POST[numero_sacos],'$_POST[estado_sacos]',$_POST[kilos_brutos],$_POST[kilos_netos], '$_POST[tipo_grano]', $_POST[latas_compra])"); echo "<script>alert('Registro Exitoso')</script>";} 
+		{mysqli_query($conexion,"insert into compra (municipio_compra, cedula, producto, unidad, marca, numero_estopas, estado_estopas, observaciones, fecha_compra, numero_sacos, estado_sacos, kilos_brutos, kilos_netos, tipo_grano, latas_compra) values ('$_POST[municipio_compra]',$_POST[cedula_compra],  '$_POST[producto]', '$_POST[unidad]' ,'$_POST[marca]', $_POST[numero_estopas], '$_POST[estado_estopas]','$_POST[observaciones]','$fecha',$_POST[numero_sacos],'$_POST[estado_sacos]',$_POST[kilos_brutos],$_POST[kilos_netos], '$_POST[tipo_grano]',$_POST[latas_compra])"); echo "<script>alert('Registro Exitoso')</script>";} 
  } 
 
  if($accion == 11)
  {    
 	    $mi_busqueda = $_POST['mi_busqueda'];
+
+		$cesar = mysqli_query($conexion," SELECT  *FROM liquidacion where codigo_liquidacion LIKE '%$mi_busqueda%' ");
+		if($alberto = mysqli_fetch_array($cesar))
+		{ echo "<img src='NO.jpg'>";} 
+else
+{ 	
 		
-		
-		$resultados = mysqli_query($conexion," SELECT * FROM compra WHERE cedula LIKE '%$mi_busqueda%'or marca LIKE '%$mi_busqueda%'");
+ 		$resultados = mysqli_query($conexion," SELECT * FROM compra WHERE cedula LIKE '%$mi_busqueda%'or marca LIKE '%$mi_busqueda%'");
 		if($consulta = mysqli_fetch_array($resultados))
-		{ $producto=$consulta['producto']; $tipo_grano=$consulta['tipo_grano']; $kilos_netos=$consulta['kilos_netos']; $unidad=$consulta['unidad'];
+		{ 
+			$producto=$consulta['producto']; $tipo_grano=$consulta['tipo_grano']; $kilos_netos=$consulta['kilos_netos']; $unidad=$consulta['unidad'];
 			$resul = mysqli_query($conexion," SELECT * FROM asociados WHERE cedula_usuario=$consulta[cedula]");
 			if($consul= mysqli_fetch_array($resul))
 		    {$nombre_usuario=$consul['nombre_usuario'];}
 			$r = mysqli_query($conexion," SELECT * FROM producto WHERE nombre='$producto' and tipo='$tipo_grano'");
 			if($c= mysqli_fetch_array($r))
 		    {$precio_dia=$c['precio']; $prima_producto=$c['prima_producto'];}
-			
+
+			$rendimiento=0; $factor=0;
+
 			$re = mysqli_query($conexion," SELECT * FROM analisisfisico WHERE codigo_analisisfisico='$consulta[marca]'");
 			if($ce= mysqli_fetch_array($re))
-		    { $rendimiento=0;
+		    { 
 				if($consulta['producto']=="cafe pergamino seco")
-				{$rendimiento=($precio_dia*92.8/$ce['factor']);}
+				{$rendimiento=($precio_dia*92.8/$ce['factor']); $factor=$ce['factor']; }
 			}
 
-			$res = mysqli_query($conexion," SELECT  *FROM liquidacion join compra on marca=codigo_liquidacion where cedula=$consulta[cedula] ");
-			$cupos_vendidos=0;
-			while($con = mysqli_fetch_array($res))
-			{  $year= date("Y", strtotime($con['fecha_compra'])); 
-			 if ($year==date("Y"))
-			 { $cupos_vendidos= $cupos_vendidos + $con['kilos_liquidacion'];} 
-			} 
 			
-			$cupo_disponible= $consul['cupo_bcs'] - $cupos_vendidos;
+			$rx = mysqli_query($conexion," SELECT * FROM resultadosecado WHERE codigo_resultado='$consulta[marca]'");
+			$d_secado=0;
+			if($cx= mysqli_fetch_array($rx))
+		    {   
+				if($cx['tipo_pago']=="cafe" or $cx['tipo_pago']=="cacao")
+				{$d_secado=$cx['costo_total_resultado'];}
+
+			}
+			$senso="no se hizo analisis sensorial";
+			$redi = mysqli_query($conexion," SELECT * FROM analisissensorial WHERE codigo_sensorial='$consulta[marca]'");
+			if($cedi= mysqli_fetch_array($redi))
+		    { $senso=$cedi['notas'];}
+			
+			
 			echo 
 			'
 		
@@ -407,7 +466,7 @@
 		   <div class="form-group row ">
 		     Cedula:
 		     <div class="col-lg-20">
-		       <input type="number" class="form-control" id="cedula_compra" name="cedula_compra" value="'.$consulta['cedula'].'" readonly ><br>
+		       <input type="number" class="form-control" id="cedula_liquidacion" name="cedula_liquidacion" value="'.$consulta['cedula'].'" readonly ><br>
 		     </div>
 	      </div>
 
@@ -418,28 +477,6 @@
 		     <input type="text" class="form-control" id="codigo_liquidacion" name="codigo_liquidacion" value="'.$consulta['marca'].'" readonly><br>
 	        </div>
 	      </div>
-
-
-		  <div class="form-group row ">
-		 Cupo:
-		 <div class="col-lg-12">
-		  <input type="number" class="form-control" id="cupo_bcs" name="cupo_bcs" value="'.$consul['cupo_bcs'].'" readonly ><br>
-		 </div>
-		</div>
-
-		<div class="form-group row ">
-		 Cupo Utilizado:
-		 <div class="col-lg-12">
-		  <input type="number" class="form-control" id="cupos_vendidos" name="cupos_vendidos" value="'.$cupos_vendidos.'" readonly ><br>
-		 </div>
-		</div>
-
-		<div class="form-group row ">
-		 Cupo Disponible:
-		 <div class="col-lg-12">
-		  <input type="text" class="form-control" id="cupo_disponible" name="cupo_disponible" value="'.$cupo_disponible.'" readonly ><br>
-		 </div>
-		</div>
 
 
 		  <div class="form-group row ">
@@ -457,9 +494,9 @@
 		</div>
 
 		  <div class="form-group row ">
-	        Cantidad:
+	        Kilos / Latas:
 	        <div class="col-lg-20">
-		     <input type="number" class="form-control" id="kilos_netos" name="kilos_netos" value="'.$kilos_netos.'" readonly><br>
+		     <input type="number" class="form-control" id="kilos_liquidacion" name="kilos_liquidacion" value="'.$kilos_netos.'" readonly><br>
 	        </div>
 	      </div>
 
@@ -480,7 +517,7 @@
 		  <div class="form-group row ">
 		 Factor de Rendimiento:
 		  <div class="col-lg-20">
-		   <input type="number" class="form-control" id="factor" name="factor" readonly value="'.$ce['factor'].'"><br>
+		   <input type="number" class="form-control" id="factor" name="factor" readonly value="'.$factor.'"><br>
 		  </div>
 		 </div>
 
@@ -505,13 +542,7 @@
 		  </div>
 		 </div>
 
-		 <div class="form-group row ">
-		  Kilos Netos:
-		  <div class="col-lg-20">
-		   <input type="number" class="form-control" id="kilos_liquidacion" name="kilos_liquidacion"  value="'.$kilos_netos.'"readonly><br>
-		  </div>
-		 </div>
-		
+		 		
 		 <div class="form-group row ">
          Precio por kilo:
          <div class="col-lg-20">
@@ -542,9 +573,23 @@
 		</div>
 
 		<div class="form-group row ">
+		Descuento Por Secado:
+		<div class="col-lg-20">
+		  <input type="number" class="form-control" id="descuento_secado" name="descuento_secado" value="'.$d_secado.'" readonly><br>
+		</div>
+	   </div>
+
+		<div class="form-group row ">
 		 Total a pagar:
 		 <div class="col-lg-20">
 		   <input type="number" class="form-control" id="neto_pagar" name="neto_pagar" readonly><br>
+		 </div>
+		</div>
+
+		<div class="form-group row ">
+		 Aporte Voluntario:
+		 <div class="col-lg-20">
+		   <input type="text" class="form-control" id="aporte" name="aporte"  onkeyup="apor()"><br>
 		 </div>
 		</div>
 
@@ -555,12 +600,24 @@
 		 </div>
 		</div>
 
+
 		<div class="form-group row ">
 		 Total ahorro:
 		 <div class="col-lg-20">
 		   <input type="text" class="form-control" id="total_ahorro" name="total_ahorro" value="0" readonly><br>
 		 </div>
 		</div>
+
+		<div class="form-group row ">
+		 Total a liquidar:
+		 <div class="col-lg-20">
+		   <input type="number" class="form-control" id="neto_pagar2" name="neto_pagar2" readonly><br>
+		 </div>
+		</div>
+
+		<p>Observaciones A. Sensorial:</p>
+	  <textarea name="o_sensorial" id="o_sensorial" rows="4" cols="40" value="'.$senso.'"  placeholder="'.$senso.'" readonly></textarea><br><br>
+		
 
 		 <p>Observaciones:</p>
 	  <textarea name="observaciones_liquidacion" id="observaciones_liquidacion" rows="4" cols="40" placeholder="escriba aqui las observaciones"></textarea><br><br>
@@ -573,15 +630,29 @@
 		  </form>
            ';
 		
-		
+		}		
 	}
-  
 } 
+ 
 
- if($accion == 12)
- {
-  mysqli_query($conexion,"insert into liquidacion (codigo_liquidacion,precio_dia,rendimiento,bonificacion,prima,precio_final,subtotal,fecha_liquidacion,hora_liquidacion,politica,observaciones_liquidacion,dian,asociados,neto_pagar,ahorro, total_ahorro, kilos_liquidacion) values ('$_POST[codigo_liquidacion]',$_POST[precio_dia],$_POST[rendimiento],$_POST[bonificacion],$_POST[prima_producto],$_POST[precio_final],$_POST[subtotal],'$fecha' ,'$hora','$_POST[politica]','$_POST[observaciones_liquidacion]',$_POST[dian],$_POST[asociados], $_POST[neto_pagar],$_POST[ahorro],$_POST[total_ahorro],$_POST[kilos_liquidacion])");
+if($accion == 12)
+ {          
+             
+             
+            $cesar = mysqli_query($conexion," SELECT  *FROM liquidacion where codigo_liquidacion= '$_POST[codigo_liquidacion]'");
+            if($alberto = mysqli_fetch_array($cesar))
+            {echo "<script>alert('Este registro ya existe')</script>";} 
+            else
+            {   
+                if($_POST['total_ahorro']>0)
+                {mysqli_query($conexion," insert into ahorro (cedula_ahorro, nombre_ahorro, valor_ahorro, fecha_ahorro, hora_ahorro, codigo_ahorro, kilos_ahorro, cantidad_ahorro) value ($_POST[cedula_liquidacion],'$_POST[nombre_compra]',$_POST[total_ahorro],'$fecha','$hora','$_POST[codigo_liquidacion]',$_POST[kilos_liquidacion],$_POST[ahorro])");}
+                
+                mysqli_query($conexion,"insert into liquidacion (codigo_liquidacion,precio_dia,rendimiento,bonificacion,prima,precio_final,subtotal,fecha_liquidacion,hora_liquidacion,politica,observaciones_liquidacion,dian,asociados,neto_pagar,ahorro, total_ahorro, kilos_liquidacion, cedula_liquidacion, aporte) values ('$_POST[codigo_liquidacion]',$_POST[precio_dia],$_POST[rendimiento],$_POST[bonificacion],$_POST[prima_producto],$_POST[precio_final],$_POST[subtotal],'$fecha' ,'$hora','$_POST[politica]','$_POST[observaciones_liquidacion]',$_POST[dian],$_POST[asociados], $_POST[neto_pagar2],$_POST[ahorro],$_POST[total_ahorro],$_POST[kilos_liquidacion], $_POST[cedula_liquidacion],$_POST[aporte])"); 
+            }
+        
  } 
+
+ 
 
  	if($accion == 1)
 	{ 
@@ -592,7 +663,11 @@
 	if($accion == 2)
 	  {
 		$mi_busqueda = $_POST['mi_busqueda'];
-		
+		$cesar = mysqli_query($conexion," SELECT  *FROM analisisfisico where codigo_analisisfisico LIKE '%$mi_busqueda%' ");
+		if($alberto = mysqli_fetch_array($cesar))
+		{echo "<script>alert('Este registro ya existe')</script>";} 
+else
+{ 		
 		
 		$resultados = mysqli_query($conexion," SELECT * FROM compra WHERE cedula LIKE '%$mi_busqueda%'or marca LIKE '%$mi_busqueda%'");
 		if($consulta = mysqli_fetch_array($resultados))
@@ -641,6 +716,20 @@
 	   </div>
 	 </div>
 
+	 <div class="form-group row">
+	 Almendra Sana (gr):
+	 <div class="col-lg-7">
+		 <input type="number" class="form-control" id="almendra_sana" name="almendra_sana"  onkeyup="facr()"><br>
+	 </div>
+  </div>
+
+  <div class="form-group row">
+	 %Almendra Sana (gr):
+	 <div class="col-lg-7">
+		 <input type="number" class="form-control" id="almendra_sana1" name="almendra_sana1"  readonly><br>
+	 </div>
+  </div>
+
 	   
 	  <div class="form-group row">
 	   Almendra Total (gr):
@@ -649,22 +738,10 @@
 		</div>
       </div>
 
-	  <div class="form-group row">
-		Almendra Sana (gr):
-	    <div class="col-lg-7">
-	    	<input type="number" class="form-control" id="almendra_sana" name="almendra_sana"  onkeyup="facr()"><br>
-        </div>
-     </div>
+	 
 
 	 <div class="form-group row">
-		%Almendra Sana (gr):
-	    <div class="col-lg-7">
-	    	<input type="number" class="form-control" id="almendra_sana1" name="almendra_sana1"  ><br>
-        </div>
-     </div>
-
-	 <div class="form-group row">
-	 % Almendra Total:
+	 % Merma:
 	 <div class="col-lg-7">
 		 <input type="number" class="form-control" id="almendra_total1" name="almendra_total1" readonly><br>
 	 </div>
@@ -716,7 +793,7 @@
 			<div class="form-group row">
 			 Vinagre (gr):
 			  <div class="col-lg-7">
-				<input type="number" class="form-control" id="vinagre" name="vinagre" min="0"  max="200" onkeyup="vi()"><br>
+				<input type="number" class="form-control" id="vinagre" name="vinagre" onkeyup="vi()"><br>
 			  </div>
 			</div>
 
@@ -754,7 +831,7 @@
        		</form>
 		   
           ';
-		}
+		}	}
    }
 
    if($accion ==3)
@@ -765,7 +842,11 @@
 	   if($accion == 5)
 	   {
 		$mi_busqueda = $_POST['mi_busqueda'];
-		
+		$cesar = mysqli_query($conexion," SELECT  *FROM analisissensorial where codigo_sensorial LIKE '%$mi_busqueda%' ");
+		if($alberto = mysqli_fetch_array($cesar))
+		{echo "<script>alert('Este registro ya existe')</script>";} 
+else
+{ 		
 		
 		$resultados = mysqli_query($conexion," SELECT * FROM compra WHERE cedula LIKE '%$mi_busqueda%'or marca LIKE '%$mi_busqueda%'");
 		if($consulta = mysqli_fetch_array($resultados))
@@ -844,7 +925,7 @@
 		    
            ';
 
-		}
+	}	}
 	   }  
 	 
 	   if($accion == 13)
@@ -938,8 +1019,15 @@
 		   <option>seleccione</option>
 		   <option value="mojado">Mojado</option>
 		   <option value="oreado">Oreado</option>
-		
 		 </select><br><br>
+
+		 Tipo de Secado:
+		    <select name="tiposecado_resultado" id="tiposecado_resultado">
+			 <option>seleccione</option>
+			 <option value="patio">Patio </option>
+			 <option value="patio mini">Patio mini</option>
+			 <option value="secadora la mesa">Secadora la Mesa</option>
+			</select> <br> <br> 
 
 		 <p>Observaciones:</p>
 		 <textarea name="observaciones_secado" id="observaciones_secado" rows="3" cols="30" placeholder="escriba aqui las observaciones"></textarea><br><br>
@@ -958,7 +1046,7 @@
 
 	 if($accion == 6)
 	 {
-	  mysqli_query($conexion,"insert into secado (codigo_secado, producto_secado, numero_latas, fecha_secado, tipo_usuario, observaciones_secado, humedad_secado, cedula_secado, municipio_secado) values ('$_POST[codigo_secado]','$_POST[producto_secado]',$_POST[numero_latas],'$fecha' ,'$_POST[tipo_usuario]','$_POST[observaciones_secado]','$_POST[humedad_secado]', $_POST[cedula_secado], '$_POST[municipio_secado]')");
+	  mysqli_query($conexion,"insert into secado (codigo_secado, producto_secado, numero_latas, fecha_secado, tipo_usuario, observaciones_secado, humedad_secado, cedula_secado, municipio_secado, tiposecado_resultado) values ('$_POST[codigo_secado]','$_POST[producto_secado]',$_POST[numero_latas],'$fecha' ,'$_POST[tipo_usuario]','$_POST[observaciones_secado]','$_POST[humedad_secado]', $_POST[cedula_secado], '$_POST[municipio_secado]','$_POST[tiposecado_resultado]' )");
 	 } 
 
 	 if($accion == 15)
@@ -980,14 +1068,14 @@
 			<div class="form-group row ">
 			Nombre:
 		   <div class="col-lg-20">
-			<input type="text" class="form-control" value="'.$consul['nombre_usuario'].'" readonly ><br>
+			<input type="text" class="form-control"  id="nombre_resultado" name="nombre_resultado" value="'.$consul['nombre_usuario'].'" readonly ><br>
 		   </div>
 		 </div>
 
 		<div class="form-group row ">
 		  Cedula:
 		  <div class="col-lg-20">
-			<input type="number" class="form-control" value="'.$consul['cedula_usuario'].'" readonly ><br>
+			<input type="number" class="form-control"  id="cedula_resultado" name="ccedula_resultado" value="'.$consul['cedula_usuario'].'" readonly ><br>
 		  </div>
 	   </div>
 
@@ -1000,22 +1088,27 @@
 	   </div>
 
 	   <div class="form-group row ">
-		 Producto:
+		 
 		 <div class="col-lg-20">
-		  <input type="text" class="form-control" id="producto" name="producto" value="'.$consulta['producto_secado'].'" readonly><br><br>
+		  <input type="hidden" class="form-control" id="municipio_resultado" name="municipio_resultado" value="'.$consulta['municipio_secado'].'" readonly><br>
 		 </div>
 	   </div>
 
-	   
-	   Tipo de Secado:
-	   <select name="tiposecado_resultado" id="tiposecado_resultado">
-	       <option>seleccione</option>
-		   <option value="patio">Patio </option>
-		   <option value="patio mini">Patio mini</option>
-		   <option value="secadora la mesa">Secadora la Mesa</option>
-		  </select> <br> <br> 
+	   Producto:
+	   <select name="producto" id="producto">
+		 <option>seleccione</option>
+		 <option value="cafe pergamino seco">Cafe pergamino seco </option>
+		 <option value="cacao seco">Cacao seco</option>
+	  </select> <br> <br>
 
-   	  <div class="form-group row">
+       <div class="form-group row ">
+		 Tipo:
+		 <div class="col-lg-20">
+		  <input type="text" class="form-control" id="tipograno_resultado" name="tipograno_resultado" value="'.$consul['estatus'].'" readonly><br><br>
+		 </div>
+	   </div>
+	   
+	 <div class="form-group row">
 	  Precio x Kilo:
 		<div class="col-lg-7">
 		 <input type="number" class="form-control" id="costo_resultado" name="costo_resultado"  placeholder="0"><br><br>
@@ -1063,61 +1156,190 @@
 
 	 if($accion == 7)
 	 {
-		mysqli_query($conexion,"insert into resultadosecado (codigo_resultado, fecha_resultado, cantidad_resultado, costo_resultado, costo_total_resultado, tiposecado_resultado, observaciones_resultado,tipo_pago) values ('$_POST[codigo_resultado]','$fecha', $_POST[cantidad_resultado], $_POST[costo_resultado],$_POST[costo_total_resultado],'$_POST[tiposecado_resultado]','$_POST[observaciones_resultado]', '$_POST[tipo_pago]')");   
+		$resultados = mysqli_query($conexion," SELECT * FROM resultadosecado WHERE codigo_resultado  = '$_POST[codigo_resultado]'");
+		if($consulta = mysqli_fetch_array($resultados))
+		{echo "<img src='NO.jpg'>";} 
+		else
+		{ mysqli_query($conexion,"insert into compra (municipio_compra, cedula, producto, marca, fecha_compra, kilos_netos, tipo_grano) values ('$_POST[municipio_resultado]',$_POST[cedula_resultado],  '$_POST[producto]', '$_POST[codigo_resultado]', '$fecha', $_POST[cantidad_resultado], '$_POST[tipograno_resultado]')"); echo "<script>alert('Registro Exitoso')</script>"; 
+		  mysqli_query($conexion,"insert into resultadosecado (codigo_resultado, fecha_resultado, cantidad_resultado, costo_resultado, costo_total_resultado, tipograno_resultado, observaciones_resultado, tipo_pago) values ('$_POST[codigo_resultado]','$fecha', $_POST[cantidad_resultado], $_POST[costo_resultado],$_POST[costo_total_resultado],'$_POST[tipograno_resultado]','$_POST[observaciones_resultado]', '$_POST[tipo_pago]')"); 
+		} 
 	  }
 
-	 if($accion == 9)
-	 {
-		mysqli_query($conexion,"insert into turno (cedula_turno, municipio_turno, fecha_turno, hora_turno) values ($_POST[cedula_turno],'$_POST[municipio_turno]','$fecha','$hora')");   
-	  }
-	
-	  	
-	   
-	 
+	  if($accion == 16)
+      { 
+        mysqli_query($conexion,"insert into asociados (fecha_registro, codigo_up, nombre_usuario, municipio, vereda, finca, cedula_usuario, estatus, contacto, cupo_cafe, cupo_cacao, tipo_vinculacion) values ('$fecha', '$_POST[codigo_up]', '$_POST[nombre_usuario]','$_POST[municipio]','$_POST[vereda]','$_POST[finca]',$_POST[cedula_usuario], '$_POST[estatus]', $_POST[contacto], $_POST[cupo_cafe], $_POST[cupo_cacao],'$_POST[tipo_vinculacion]')");   
+       }
 
-	  if($accion == 8)
+	   if($accion == 17)
+	   { 
+		 mysqli_query($conexion,"insert into producto (codigo, tipo, precio, descripcion, prima_producto, politica, nombre) values ('$_POST[codigo]', '$_POST[tipo]', $_POST[precio], '$_POST[descripcion]', $_POST[prima_producto],'$_POST[politica]','$_POST[nombre]')");   
+		}
+
+
+	  if($accion ==18)
 	  { 
-		$resul= mysqli_query($conexion,"select *from compra join asociados on cedula=cedula_usuario where marca='$_POST[codigo_liquidacion]'");
-		if($consul = mysqli_fetch_array($resul))
-		{
-		   
-		   if($_POST['politica']=="politica1" and $consul['tipo_grano']=="organico" and $consul['producto']=="Cafe pergamino seco")
-		   {
-				   $re= mysqli_query($conexion,"select * from analisisfisico where codigo_analisisfisico='$_POST[codigo_liquidacion]'");
-				   if($con = mysqli_fetch_array($re))
-				   { 
-					$resultado= mysqli_query($conexion,"select *from producto where nombre= 'cafe'");
-	                if($consulta = mysqli_fetch_array($resultado))
-	                { 
-					 mysqli_query($conexion,"insert into liquidacion (codigo_liquidacion, precio_dia, organico_seco, estandar_seco, organico_mojado, estandar_mojado ,valor_calidad, bonificacion, prima, precio_final, total_liquidacion, dian, asociados, neto_pagar ,politica,fecha_liquidacion, hora_liquidacion, observaciones_liquidacion) values ('$_POST[codigo_liquidacion]',$consulta[precio], ($consulta[organico_seco]*92.8)/$con[factor], $_POST[bonificacion], $consulta[prima_producto], ((($consulta[organico_seco]*92.8)/$con[factor])+$_POST[bonificacion])+$consulta[prima_producto], $consul[kilos_netos]*((($consulta[organico_seco]*92.8)/$con[factor])+$_POST[bonificacion]+$consulta[prima_producto]), $consul[kilos_netos]*((($consulta[organico_seco]*92.8)/$con[factor])+$_POST[bonificacion]+$consulta[prima_producto])*0.005, $consul[kilos_netos]*((($consulta[organico_seco]*92.8)/$con[factor])+$_POST[bonificacion]+$consulta[prima_producto])*001,  $consul[kilos_netos]*((($consulta[organico_seco]*92.8)/$con[factor])+$_POST[bonificacion]+$consulta[prima_producto]) - ($consul[kilos_netos]*((($consulta[organico_seco]*92.8)/$con[factor])+$_POST[bonificacion]+$consulta[prima_producto])*0.005) - ($consul[kilos_netos]*((($consulta[organico_seco]*92.8)/$con[factor])+$_POST[bonificacion]+$consulta[prima_producto])*001) , '$_POST[politica]','$fecha','$hora','$_POST[observaciones_liquidacion]')") or die("Problemas en la insercion:". mysqli_error($conexion));   
-				    }
-			       } 
-			}	   
-			if($_POST['politica']=="politica2" and $consul['tipo_grano']=="organico" and $consul['producto']=="Cafe pergamino seco")
-			   {
-				 $re= mysqli_query($conexion,"select * from analisisfisico where codigo_analisisfisico='$_POST[codigo_liquidacion]'");
-				 if($con = mysqli_fetch_array($re))
-				 {
-				  $r= mysqli_query($conexion,"select *from compra where marca='$_POST[codigo_liquidacion]'");
-				  if($c = mysqli_fetch_array($r))
-				  {
-				   mysqli_query($conexion,"insert into liquidacion (codigo_liquidacion, fecha_liquidacion, hora_liquidacion, precio_dia, valor_calidad, bonificacion, prima, precio_final, total_liquidacion, politica, observaciones_liquidacion) values ('$_POST[codigo_liquidacion]','$fecha','$hora',$consulta[precio], 0, $_POST[bonificacion], $consulta[prima_producto], $consulta[precio]+$_POST[bonificacion], $c[kilos_netos]*($consulta[precio]+$_POST[bonificacion]), '$_POST[politica]','$_POST[observaciones_liquidacion]')") or die("Problemas en la insercion:". mysqli_error($conexion));   
-				  }
-			     }
-		       }
-        }
+		$mi_busqueda = $_POST['mi_busqueda'];
+		
+		$total_ahorrado=0; $total_retiro=0;
+		$cesar = mysqli_query($conexion," SELECT * FROM ahorro WHERE cedula_ahorro LIKE '%$mi_busqueda%'or nombre_ahorro LIKE '%$mi_busqueda%'");
+
+	  if($alberto = mysqli_fetch_array($cesar))
+	  { 
+		$resultados = mysqli_query($conexion," SELECT * FROM ahorro WHERE cedula_ahorro LIKE '%$mi_busqueda%'or nombre_ahorro LIKE '%$mi_busqueda%'");
+
+		while($consulta = mysqli_fetch_array($resultados))
+		{ $total_ahorrado = $total_ahorrado + $consulta['valor_ahorro']; $nombre=$consulta['nombre_ahorro']; $cedula=$consulta['cedula_ahorro'];}
+
+        $resul = mysqli_query($conexion," SELECT * FROM retiro WHERE cedula_retiro LIKE '%$mi_busqueda%'or nombre_retiro LIKE '%$mi_busqueda%'");
+		while($consul = mysqli_fetch_array($resul))
+		{ $total_retiro = $total_retiro + $consul['valor_retiro'];}
+
+          $neto_ahorro=$total_ahorrado - $total_retiro;		
+		
+			echo 
+			'
+			<form>       
+
+			<div class="form-group row ">
+			Nombre:
+		   <div class="col-lg-20">
+			<input type="text" class="form-control" id="nombre_retiro" name="nombre_retiro" value="'.$nombre.'" readonly ><br>
+		   </div>
+		 </div>
+
+		<div class="form-group row ">
+		  Cedula:
+		  <div class="col-lg-20">
+			<input type="number" class="form-control" id="cedula_retiro" name="cedula_retiro" value="'.$cedula.'" readonly ><br>
+		  </div>
+	   </div>
+
+	
+	   <div class="form-group row ">
+		 Dinero Ahorrado:
+		 <div class="col-lg-20">
+		  <input type="text" class="form-control" id="neto_ahorro" name="neto_ahorro" value="'.$neto_ahorro.'" readonly><br>
+		 </div>
+	   </div>
+
+	   <div class="form-group row ">
+		 Cantidad a Retirar:
+		 <div class="col-lg-20">
+		  <input type="text" class="form-control" id="valor_retiro" name="valor_retiro" placeholder="0" onkeyup="reti();">
+		  <div class="form-text" id="comentario"></div>
+        </div>   
+		 </div>
+	   </div>
+
+
+   	  <div class="form-group row">
+	  Saldo Disponible:
+		<div class="col-lg-7">
+		 <input type="number" class="form-control" id="saldo_disponible" name="saldo_disponible" value="'.$neto_ahorro.'" readonly><br><br>
+		</div>
+      </div>
+
+	
+			 
+			<div class="form-group row ">
+			  <div class="offset-lg-1 col-lg-8">
+			  	<button  onclick="retiro();" id="boton">Guardar</button>
+			
+			  </div> 
+			</div>
+			</form>
+		    
+           ';
+		}
+		if($total_ahorrado==0 and $total_retiro==0)
+		{ echo "<img src='NO.jpg'>"; }
+		
+		
 	   }
 	    
-	  if($accion == 9)
-	  {
-		 mysqli_query($conexion,"insert into turno (cedula_turno, municipio_turno, fecha_turno, hora_turno) values ($_POST[cedula_turno],'$_POST[municipio_turno]','$fecha','$hora')");   
-	   }
+	   if($accion == 19)
+	   { 
+		mysqli_query($conexion,"insert into retiro (cedula_retiro, fecha_retiro, hora_retiro, valor_retiro, nombre_retiro) values ($_POST[cedula_retiro],'$fecha','$hora',$_POST[valor_retiro],'$_POST[nombre_retiro]')");   
+		 
+		}
+
+		if($accion == 20)
+		{  
 			
-	   else
-	{
-            
-    }
-    
+		   mysqli_query($conexion,"insert into controlsecadora (fecha_secadora, hora_secadora) values ('$fecha','$hora')");   
+		   
+		}
+
+		
+
+	  if($accion == 22)
+	  {  
+		$resul = mysqli_query($conexion,"select *from asociados where cedula_usuario = $_POST[cedula_turno]");
+		if($consul = mysqli_fetch_array($resul))
+		{ 
+			$resultado = mysqli_query($conexion," SELECT  *FROM turno");
+			$a=1;
+		   while($consulta = mysqli_fetch_array($resultado))
+		   {  
+			if ($consulta['fecha_turno']==$fecha and $consulta['municipio_turno']==$consul['municipio'])
+			{  $a=$a+1; }
+		   }
+		   $_SESSION['cedula']=$_POST['cedula_turno'];
+		   $_SESSION['nombre']=$consul['nombre_usuario'];
+		   $_SESSION['turno']=$a;
+		   $_SESSION['fecha']=$fecha;
+		   $_SESSION['hora']=$hora;
+		   
+		   	mysqli_query($conexion,"insert into turno (cedula_turno, fecha_turno, hora_turno, municipio_turno,turno) values ($_POST[cedula_turno],'$fecha','$hora','$consul[municipio]',$a)");   
+
+			   echo "<script> window.location.assign('TICKE.PHP')</script>";
+	    }
+	    else { echo "<script>alert('EL USUARIO NO ESTA ESTA REGISTRADO')</script>"; }
+			
+	}
+	   if($accion == 99)
+	   {  
+		$resul = mysqli_query($conexion,"select *from secadora");
+		while($consul = mysqli_fetch_array($resul))
+		{ 
+		 echo'
+
+		 <table id="example" class="display" style="width:100%">
+		 <thead>
+			 <tr>
+				 <th>Name</th>
+				 <th>Position</th>
+				 <th>Office</th>
+				 <th>Age</th>
+				 <th>Start date</th>
+				 <th>Salary</th>
+			 </tr>
+		 </thead>
+		 <tbody>
+			 <tr>
+				 <td>Tiger Nixon</td>
+				 <td>System Architect</td>
+				 <td>Edinburgh</td>
+				 <td>61</td>
+				 <td>2011-04-25</td>
+				 <td>$320,800</td>
+			 </tr>
+			 
+		 </tbody>
+		 <tfoot>
+			 <tr>
+				 <th>Name</th>
+				 <th>Position</th>
+				 <th>Office</th>
+				 <th>Age</th>
+				 <th>Start date</th>
+				 <th>Salary</th>
+			 </tr>
+		 </tfoot>
+	 </table>
+		 ';
+		 }
+		}
      
      ?>
 </body>
