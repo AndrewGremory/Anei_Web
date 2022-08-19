@@ -5,8 +5,10 @@
 
 
 <!-- jquery -->
-<!-- <script src="vendor/jquery/jquery-3.6.0.min.js"></script> -->
+// <!-- <script src="vendor/jquery/jquery-3.6.0.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
 
 <!-- popper -->
 <!-- <script src="vendor/popper.js/popper.min.js"></script> -->
@@ -27,6 +29,13 @@
             });
         });
     </script>
+
+<script type="text/javascript">
+    $(document).ready( function () {
+    $('#prueba').DataTable();
+} );
+</script>
+
 
 </body>
 </html>
